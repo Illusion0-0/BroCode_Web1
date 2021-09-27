@@ -1,23 +1,32 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Login from "./pages/Login";
+import React, { useContext } from "react";
+import AuthPage from "./pages/AuthPage";
 import Dashboard from "./pages/Dashboard";
-import UserProvider from "./providers/UserProvider";
+import { UserContext } from "./providers/UserProvider";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
+
 function App() {
+  const UserCtx = useContext(UserContext);
+  const isLoggedIn = UserCtx.isLoggedIn;
   return (
-    <UserProvider>
-      <Router>
-        <div className="App">
-          <Switch>
-            <Route exact path="/">
-              <Login />
-            </Route>
-            <Route path="/dashboard">
-              <Dashboard />
-            </Route>
-          </Switch>
-        </div>
-      </Router>
-    </UserProvider>
+    <Router>
+      <div className="App">
+        <Switch>
+          <Route path="/auth">
+            {!isLoggedIn && <AuthPage />}
+            {isLoggedIn && <Redirect to="/" />}
+          </Route>
+          <Route path="/">
+            {isLoggedIn && <Dashboard />}
+            {!isLoggedIn && <Redirect to="/auth" />}
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 

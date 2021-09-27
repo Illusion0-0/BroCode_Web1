@@ -1,15 +1,18 @@
 import LogOut from "./LogOut";
 import { UserContext } from "../../providers/UserProvider";
-import { useContext } from "react";
+import React, { useContext } from "react";
 import SearchBar from "./SearchBar";
+import CreateBtn from "./CreateBtn";
 function TopInfo() {
-  const user = useContext(UserContext);
+  const data = useContext(UserContext);
+  const user = data.user;
   return (
     <div>
       <div>
-        {user ? user.displayName : "Guest"}
-        {user ? <img src={user.photoURL} alt="Avatar" /> : ""}
+        {user ? user.username : "Guest"}
+        {user ? <img src={user.avatar} alt="Avatar" /> : ""}
         <LogOut />
+        <CreateBtn />
       </div>
     </div>
   );

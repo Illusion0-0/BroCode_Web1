@@ -1,14 +1,13 @@
 import Card from "./Card";
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { NoteContext } from "../../providers/NoteProvider";
 
 function NotesList() {
-  const notes = useContext(NoteContext);
-  //   console.log(notes);
+  const { data } = useContext(NoteContext);
   return (
     <div>
-      {notes.data
-        ? notes.data.map((note) => <Card key={note._id} props={note} />)
+      {data.notes
+        ? data.notes.map((note) => <Card key={note._id} props={note} />)
         : ""}
     </div>
   );

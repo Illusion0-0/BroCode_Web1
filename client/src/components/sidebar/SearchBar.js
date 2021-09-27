@@ -1,4 +1,4 @@
-import { useContext, useRef } from "react";
+import React, { useContext, useRef } from "react";
 import { NoteContext } from "../../providers/NoteProvider";
 function SearchBar() {
   const notes = useContext(NoteContext);
