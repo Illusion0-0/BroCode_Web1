@@ -5,12 +5,14 @@ const app = express();
 const users = require("./routes/users");
 const auth = require("./routes/auth");
 const cors = require("cors");
+const xss = require("xss-clean");
 
 mongoose
   .connect("mongodb://localhost/playground")
   .then(() => console.log("Connected to MongoDB..."))
   .catch((err) => console.error("Could not connect to MongoDB...", err));
 
+app.use(xss());
 //Allow cross-origin requests for trusted origins
 app.use(cors({ origin: "http://localhost:3000" }));
 
