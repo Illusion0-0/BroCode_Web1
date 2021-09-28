@@ -1,0 +1,682 @@
+* {
+  box-sizing: border-box;
+}
+
+body,
+.App {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  width: 100%;
+  height: 100vh;
+  font-size: 16px;
+}
+.ck-editor__editable_inline {
+  height: 100vh;
+}
+.dark-mode {
+  background-color: var(--bg-secondary) !important;
+  color: var(--text-secondary) !important;
+}
+
+.dark-mode .back {
+  background: url("../images/dark-space.jpg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+.dark-mode .float {
+  background-color: azure !important;
+}
+
+.dark-mode .note {
+  background-color: var(--bg-primary) !important;
+  color: var(--text-secondary) !important;
+}
+
+.dark-mode .notecard,
+.dark-mode .dashtitle {
+  color: var(--text-secondary) !important;
+}
+
+.dark-mode .note.new button {
+  background-color: var(--bg-primary) !important;
+}
+
+.notedash {
+  background-color: var(--bg-primary);
+}
+
+.App {
+  background: url("../images/note-grid-light.jpg");
+  background-size: cover;
+  height: 100vh;
+  overflow: hidden;
+  font-family: monospace !important;
+}
+
+.dashheader h1 {
+  margin: 0;
+}
+
+.dashnotes {
+  overflow-y: auto;
+  width: 100%;
+  height: fit-content;
+}
+
+.dashnote {
+  padding: 20px 10px 0 11px;
+  cursor: pointer;
+}
+.dashnotetitle {
+  display: flex;
+}
+.dashnotetitle h3 {
+  flex: 1 1;
+}
+.dashnote button {
+  color: crimson;
+  display: none;
+  background: none;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+.dashnote p {
+  margin: 10px 0;
+}
+.dashnote small {
+  display: block;
+  color: #999;
+}
+
+.dashnote:hover {
+  background: rgb(156 153 172 / 12%);
+}
+
+.dashnote:hover button {
+  display: inline;
+}
+
+.dashnote.active,
+.dashnote.active small {
+  background: #08c;
+  color: var(--text-secondary);
+}
+
+.app-main {
+  width: 100%;
+  height: 100vh;
+  padding: 0;
+}
+
+.dashnotes hr {
+  opacity: 0.4;
+}
+
+.menu {
+  padding: 25px 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+  min-height: 100vh;
+}
+
+.dashtitle {
+  font-size: 1.8rem;
+  font-weight: 500;
+  display: block;
+  text-align: center;
+  color: rgb(56, 56, 58) !important;
+}
+
+.Notelist {
+  padding: 10px 18px;
+  display: grid;
+  height: 85vh;
+  margin: 20px 0;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  overflow-y: auto;
+}
+
+.Notelist .note {
+  font-weight: 400;
+  padding: 1rem;
+  height: 170px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  white-space: pre-wrap;
+  border-radius: 15px;
+  background: rgba(226, 225, 225, 0.541);
+  box-shadow: 0 6px 10px rgb(0 0 0 / 36%), 0 0 6px rgb(0 0 0 / 0%);
+  transition: 0.3s transform cubic-bezier(0.155, 1.105, 0.295, 1.12),
+    0.3s box-shadow;
+  cursor: pointer;
+}
+
+.Notelist .note:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
+  z-index: 9;
+  opacity: 1;
+  cursor: pointer;
+}
+
+.Notelist .note-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--bg-secondary);
+}
+
+.Notelist .deleteNote {
+  opacity: 0;
+}
+.Notelist .note:hover .deleteNote {
+  z-index: inherit;
+  opacity: 1;
+}
+
+.note.new {
+  background-color: var(--text-secondary);
+}
+.note.new button {
+  border: none;
+  background-color: var(--text-secondary);
+  margin: auto;
+}
+
+.circle {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  position: relative;
+  margin: auto;
+}
+.circle::after {
+  content: " ";
+  position: absolute;
+  display: block;
+  background-color: rgb(209, 209, 209);
+  height: 5px;
+  margin-top: -5px;
+  top: 50%;
+  left: 5px;
+  right: 5px;
+  z-index: 9;
+}
+.circle::before {
+  content: " ";
+  position: absolute;
+  display: block;
+  background-color: rgb(209, 209, 209);
+  width: 5px;
+  margin-left: -5px;
+  left: 50%;
+  top: 5px;
+  bottom: 5px;
+  z-index: 9;
+}
+
+.noteContent {
+  opacity: 0.5;
+}
+
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scrollbar-color: var(--bg-primary) #ffffff;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 3px !important;
+  background-color: transparent;
+}
+
+*::-webkit-scrollbar-track {
+  -webkit-box-shadow: none !important;
+  background-color: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: white;
+}
+
+.notedash {
+  display: flex;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+}
+
+.uname {
+  padding: 18px 12px;
+}
+
+.uname h2 {
+  flex: 1;
+  padding: 0 10px;
+}
+.uname button {
+  border: none;
+}
+/* ------------------------- */
+
+main {
+  margin-left: 5rem;
+  padding: 1rem;
+}
+
+.navbar {
+  position: fixed;
+  background-color: var(--bg-secondary);
+  transition: width 600ms ease;
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar-nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.nav-item {
+  width: 100%;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  color: var(--text-primary);
+  text-decoration: none;
+  background-color: var(--bg-secondary);
+  transition: var(--transition-speed);
+}
+
+.nav-link:hover {
+  filter: grayscale(0%) opacity(1);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+}
+
+.link-text {
+  display: none;
+  margin-left: 1rem;
+}
+
+.nav-link svg {
+  width: 2rem;
+  min-width: 2rem;
+  margin: 0 1.5rem;
+}
+
+.logo {
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  font-size: 1.5rem;
+  width: 100%;
+}
+
+.logo svg {
+  transform: rotate(0deg);
+  transition: var(--transition-speed);
+}
+
+.logo-text {
+  display: inline;
+  position: absolute;
+  left: -999px;
+  transition: var(--transition-speed);
+}
+
+.dashheader button {
+  cursor: pointer;
+}
+
+.search {
+  display: flex;
+  bottom: 0;
+  align-items: center;
+  background-color: var(--bg-primary);
+  padding: 5px;
+  border: none;
+}
+
+.nav-link svg {
+  margin: 0;
+}
+
+.search input {
+  border: none;
+  background-color: var(--bg-primary);
+  width: 100%;
+  padding: 2px 6px;
+  color: var(--text-secondary);
+}
+
+.search input:focus {
+  outline: none;
+}
+
+.add-note {
+  padding: 4px;
+  border: none;
+  background-color: var(--bg-secondary) !important;
+}
+
+.add-note:hover {
+  color: var(--bg-secondary) !important;
+}
+
+.textfield textarea {
+  width: 100%;
+  height: 91vh;
+  padding: 25px;
+}
+
+.avatar {
+  vertical-align: middle;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+/* Small screens */
+@media only screen and (max-width: 600px) {
+  .uname h2 {
+    display: none;
+  }
+  .add-note,
+  .search {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    justify-content: center;
+    background-color: var(--bg-secondary);
+  }
+  .profile {
+    flex-flow: row-reverse;
+  }
+  .search input {
+    display: none;
+  }
+  .dashheader {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 30px;
+    flex-flow: row-reverse;
+    justify-content: space-between;
+  }
+  .dashnotes {
+    display: none;
+  }
+  .navbar {
+    bottom: 0;
+    width: 100vw;
+    height: 4rem;
+    flex-direction: row;
+    align-items: center;
+  }
+  .app-main {
+    width: 100vw;
+    margin-left: 0;
+  }
+
+  .logo {
+    display: none;
+  }
+
+  .navbar-nav {
+    flex-direction: row;
+  }
+
+  .nav-link {
+    justify-content: center;
+  }
+
+  main {
+    margin: 0;
+  }
+  .form-container {
+    width: 90% !important;
+  }
+}
+
+/* Large screens */
+@media only screen and (min-width: 600px) {
+  .hamburger {
+    position: absolute;
+    margin: 5px;
+    z-index: 2;
+    cursor: pointer;
+  }
+
+  .line {
+    width: 30px;
+    height: 3px;
+    background: var(--bg-secondary);
+    margin-bottom: 5px;
+  }
+  .app-main {
+    transition: all 1s;
+  }
+
+  .navbar {
+    top: 0;
+    left: -320px;
+    transition: left 1s;
+  }
+  .navbar--open {
+    left: 0;
+  }
+  .navbar {
+    top: 0;
+    width: 20rem;
+    height: 100vh;
+  }
+
+  .navbar .link-text {
+    display: inline;
+  }
+
+  .navbar .logo-text {
+    left: 0px;
+  }
+}
+
+.note-header {
+  text-align: center;
+  background-color: whitesmoke;
+  text-transform: uppercase;
+  height: 30px;
+  padding: 6px;
+}
+
+.format-note {
+  background-color: rgb(230, 233, 235);
+  height: 30px;
+  padding: 6px;
+  display: flex;
+}
+.format-note ul {
+  overflow-x: hidden;
+  white-space: nowrap;
+  height: 1em;
+  width: 100%;
+  margin: auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.format-note li {
+  display: inline;
+  margin: 0 4%;
+}
+
+.format-note button {
+  background-color: rgb(225, 226, 226);
+  border: none;
+}
+
+.format-note button:hover {
+  background-color: rgb(243, 243, 243);
+}
+
+.notecard {
+  text-decoration: none;
+  color: var(--bg-secondary);
+}
+
+.float {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  z-index: 0;
+  bottom: 5%;
+  right: 5%;
+  background-color: var(--bg-secondary);
+  border-radius: 50px;
+  text-align: center;
+  box-shadow: 2px 2px 3px #999;
+  text-decoration: none;
+  padding: 9px;
+  cursor: pointer;
+}
+
+a .moon {
+  font-size: 20px;
+  float: left;
+  -webkit-transition: 0.6s ease-out;
+  -moz-transition: 0.6s ease-out;
+  transition: 0.6s ease-out;
+}
+
+a:hover .moon {
+  -webkit-transform: rotateZ(720deg);
+  -moz-transform: rotateZ(720deg);
+  transform: rotateZ(720deg);
+}
+
+.login,
+.register {
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: grid;
+  background: url("../images/login-light.jpg") fixed no-repeat;
+  font-family: "Rubik", sans-serif !important;
+  background-size: cover;
+  background-position: center center;
+}
+
+.dark-mode .login,
+.dark-mode .register {
+  background: url("../images/login-dark.jpeg") fixed no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+.form-container {
+  margin: auto;
+  padding: 10px;
+  width: 400px;
+  background: inherit;
+  border-radius: 5px;
+}
+
+.form-container form {
+  text-align: center;
+}
+
+.form-container input {
+  padding: 12px 0;
+  outline: none;
+  margin-bottom: 10px;
+  border-radius: 3px;
+  border: 1px solid transparent;
+  text-align: center;
+  background: inherit;
+  box-shadow: inset 0 0 0 200px rgb(255 255 255 / 20%);
+  color: white;
+  width: 90%;
+  font-size: 16px;
+  transition: border 0.2s, background-color 0.2s;
+}
+
+.form-container input:hover {
+  box-shadow: inset 0 0 0 200px rgb(255 255 255 / 10%);
+}
+::placeholder {
+  color: var(--text-secondary);
+}
+
+.login-btn,
+.signup {
+  background-color: #2d3b55 !important;
+  color: var(--text-secondary);
+  box-shadow: none !important;
+}
+
+.login-btn:hover,
+.signup:hover {
+  background: #27364e !important;
+}
+
+.formFooter {
+  border-top: 1px solid #dce8f1;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+}
+.underlineHover,
+.already-user a:link,
+.already-user a:visited {
+  text-decoration: none;
+  font-size: 13px;
+  color: var(--text-primary);
+}
+.underlineHover:after,
+.already-user a:after {
+  display: block;
+  left: 0;
+  bottom: -10px;
+  width: 0;
+  height: 2px;
+  background-color: #c9ebfc;
+  content: "";
+  transition: width 0.2s;
+}
+
+.underlineHover:hover,
+.already-user a:hover {
+  color: var(--text-secondary);
+}
+
+.underlineHover:hover:after,
+.already-user a:hover:after {
+  width: 100%;
+}
+
+.already-user {
+  display: flex;
+  justify-content: center;
+  margin: 10px 15px;
+}
