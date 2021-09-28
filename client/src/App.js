@@ -52,7 +52,12 @@ function App() {
       <div className="App">
         <Switch>
           <Route path="/auth">
-            {!isLoggedIn && <AuthPage />}
+            {!isLoggedIn && (
+              <AuthPage
+                darkMode={darkMode}
+                handleToggleDarkMode={setDarkMode}
+              />
+            )}
             {isLoggedIn && <Redirect to="/" />}
           </Route>
           <Route path="/Dashboard">
