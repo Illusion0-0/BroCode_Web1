@@ -46,37 +46,68 @@ function SignupForm() {
   }
 
   return (
-    <div>
-      <form className="signup-form" onSubmit={handleSubmit}>
-        <h2>Sign Up</h2>
-        {error && <p className="error">{error}</p>}
-        <div className="form-group">
-          <label htmlFor="userName">User Name</label>
-          <input type="text" id="userName" ref={userNameRef} />
-        </div>
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
-          <input type="email" id="email" ref={emailRef} />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input type="password" id="password" ref={passwordRef} />
-        </div>
-        <div className="form-group">
-          <label htmlFor="confirmPassword">Confirm Password</label>
+    <div className="register">
+      <div className="form-container">
+        <form
+          spellcheck="false"
+          autocomplete="off"
+          className="signup-form"
+          onSubmit={handleSubmit}
+        >
+          {error && <p className="error">{error}</p>}
+          <div className="form-group">
+            {/* <label htmlFor="email">Email</label> */}
+            <input
+              className="field"
+              type="text"
+              id="userName"
+              placeholder="Username"
+              ref={userNameRef}
+            />
+          </div>
+          <div className="form-group">
+            {/* <label htmlFor="password">Password</label> */}
+            <input
+              placeholder="Email"
+              className="field"
+              type="email"
+              id="email"
+              ref={emailRef}
+              autocomplete="off"
+            />
+          </div>
+          <div className="form-group">
+            <input
+              className="field"
+              type="password"
+              id="password"
+              ref={passwordRef}
+              placeholder="Password"
+            />
+          </div>
+          <div className="form-group">
+            <input
+              className="field"
+              type="password"
+              id="confirmPassword"
+              ref={confirmPasswordRef}
+              placeholder="Confirm Password"
+            />
+          </div>
+
           <input
-            type="password"
-            id="confirmPassword"
-            ref={confirmPasswordRef}
+            className="signup"
+            type="submit"
+            value={loading ? "Loading..." : "Sign Up"}
+            disabled={loading}
           />
+        </form>
+        <div className="already-user">
+          <a href="#" onClick={() => history.replace("/auth")}>
+            Already have an account? Login
+          </a>
         </div>
-        <button type="submit" disabled={loading}>
-          {loading ? "Loading..." : "Sign Up"}
-        </button>
-      </form>
-      <button onClick={() => history.replace("/auth")}>
-        Already have an account? Login
-      </button>
+      </div>
     </div>
   );
 }
