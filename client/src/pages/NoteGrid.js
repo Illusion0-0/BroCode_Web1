@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import GridList from "../components/NoteGrid/GridList";
 import { UserContext } from "../providers/UserProvider";
+import NoteProvider from "../providers/NoteProvider";
 
 function NoteGrid() {
   const { darkMode } = useContext(UserContext);

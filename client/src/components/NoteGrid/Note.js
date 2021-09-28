@@ -32,7 +32,10 @@ const Note = ({ note }) => {
   function extractContent(s) {
     var span = document.createElement("span");
     span.innerHTML = s;
-    return span.textContent || span.innerText;
+    if (span.innerText.length > 85) {
+      return (span.textContent || span.innerText).substring(0, 85) + "...";
+      return span.textContent || span.innerText;
+    }
   }
   return (
     <div className="note">

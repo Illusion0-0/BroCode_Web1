@@ -226,6 +226,7 @@ body,
 
 .noteContent {
   opacity: 0.5;
+  word-wrap: break-word;
 }
 
 /* ===== Scrollbar CSS ===== */

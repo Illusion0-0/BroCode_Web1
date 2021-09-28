@@ -4,7 +4,20 @@ import Note from "./Note";
 import { NoteContext } from "../../providers/NoteProvider";
 
 function GridList() {
-  const { data } = useContext(NoteContext);
+  const { data, setNotes } = useContext(NoteContext);
+  if (!data) {
+    fetch(process.env.REACT_APP_SERVER_URL + "/api/notes", {
+      headers: {
+        method: "GET",
+        "Content-Type": "application/json",
+        "x-auth-token": localStorage.getItem("token"),
+      },
+    }).then((response) => {
+      response.json().then((data) => {
+        setNotes(data.notes);
+      });
+    });
+  }
   return (
     <div className="container">
       <div className="menu">
