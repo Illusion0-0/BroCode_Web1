@@ -1,18 +1,11 @@
-/* function used to create a note */
-import { useContext } from "react";
-import { Redirect } from "react-router";
+import React, { useContext } from "react";
 import { NoteContext } from "../../providers/NoteProvider";
-import { useHistory } from "react-router-dom";
 
-function CreateBtn() {
+function AddNoteCard() {
   const NoteCtx = useContext(NoteContext);
-
-  let history = useHistory();
   function handleClick(e) {
     e.preventDefault();
-    const title = prompt("Enter a title for your note");
     const note = {
-      title,
       content: "",
     };
     fetch(process.env.REACT_APP_SERVER_URL + "/api/notes", {
@@ -25,17 +18,24 @@ function CreateBtn() {
     })
       .then((res) => res.json())
       .then((data) => {
-        NoteCtx.setNotes((prev) => [data, ...prev]);
+        // console.log(data);
+        NoteCtx.setNotes((previousNotes) => {
+          if (previousNotes) return [data, ...previousNotes];
+          else return [data];
+        });
         NoteCtx.setActiveNote(data);
-        history.replace(`/dashboard/notes/${data._id}`);
+        // console.log(NoteCtx);
       })
       .catch((err) => console.log(err));
   }
+
   return (
-    <button className="add-note" onClick={handleClick}>
-      <span>📝</span>
-    </button>
+    <div className="note new">
+      <button onClick={handleClick}>
+        <div className="circle"></div>
+      </button>
+    </div>
   );
 }
 
-export default CreateBtn;
+export default AddNoteCard;

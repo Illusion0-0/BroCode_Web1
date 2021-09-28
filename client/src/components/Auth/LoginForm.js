@@ -30,6 +30,7 @@ function LoginForm() {
           setLoading(false);
         } else {
           UserCtx.login(data.token);
+          UserCtx.setUser(data);
           history.replace("/");
         }
       })
@@ -39,36 +40,51 @@ function LoginForm() {
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <h3>Login</h3>
-
-        {error && <div className="alert">{error}</div>}
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
+    <div className=" login">
+      <div className="form-container">
+        <form spellcheck="false" autocomplete="off" onSubmit={handleSubmit}>
+          {error && <div className="alert">{error}</div>}
+          <div className="form-group">
+            {/* <label htmlFor="email">Email</label> */}
+            <input
+              className="field"
+              type="email"
+              id="email"
+              placeholder="Enter email"
+              ref={emailRef}
+              autocomplete="off"
+            />
+          </div>
+          <div className="form-group">
+            {/* <label htmlFor="password">Password</label> */}
+            <input
+              className="field"
+              type="password"
+              id="password"
+              placeholder="Password"
+              ref={passwordRef}
+            />
+          </div>
           <input
-            type="email"
-            id="email"
-            placeholder="Enter email"
-            ref={emailRef}
+            className="login-btn"
+            type="submit"
+            value={loading ? "Loading..." : "Login"}
+            disabled={loading}
           />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            placeholder="Password"
-            ref={passwordRef}
-          />
-        </div>
-        <button type="submit" disabled={loading}>
-          {loading ? "Loading..." : "Login"}
-        </button>
-      </form>
-      <button onClick={() => history.replace("/auth/signup")}>
-        Create an Account
-      </button>
+          <div className="formFooter">
+            <a className="underlineHover" href="#">
+              Forgot Password?
+            </a>
+            <a
+              href="#"
+              className="underlineHover"
+              onClick={() => history.replace("/auth/signup")}
+            >
+              Create an Account
+            </a>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

@@ -21,7 +21,7 @@ router.get("/", auth, (req, res) => {
         return { _id: note };
       });
 
-      notes = await Note.find().or(notes);
+      notes = await Note.find().or(notes).sort({ updatedAt: -1 });
       res.send({ notes });
     });
 });

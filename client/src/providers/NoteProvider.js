@@ -5,7 +5,7 @@ export const NoteContext = createContext();
 
 export default function NoteProvider({ children }) {
   const [notes, setNotes] = useState([]);
-  const [, setActiveNote] = useState(null);
+  const [activeNote, setActiveNote] = useState(null);
   useEffect(() => {
     fetch(process.env.REACT_APP_SERVER_URL + "/api/notes", {
       headers: {
@@ -15,31 +15,15 @@ export default function NoteProvider({ children }) {
       },
     }).then((response) => {
       response.json().then((data) => {
-        setNotes(data);
+        setNotes(data.notes);
       });
     });
   }, []);
-  // useEffect(() => {
-  //   setNotes(() => {
-  //     return [...API_DUMMY_DATA];
-  //   });
-  // }, []);
-  // function addNote(note) {
-  //   setNotes((previousNotes) => {
-  //     return [...previousNotes, ...note]; //adds note obj
-  //   });
-  // }
-  // function removeNote(noteid) {
-  //   setNotes((previousNotes) => {
-  //     return previousNotes.filter((note) => note._id !== noteid); //remove note obj
-  //   });
-  // }
   const manageNote = {
     data: notes,
-    activeNote: "",
+    activeNote,
     setActiveNote,
-    // add: addNote,
-    // remove: removeNote,
+    setNotes,
   };
 
   return (

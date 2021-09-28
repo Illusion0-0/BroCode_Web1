@@ -1,7 +1,7 @@
-export const API_DUMMY_DATA = [
+export const ApiData = [
   {
     _id: "1",
-    title: "Hello World",
+    title: "Hello World1",
     created: "01/08/20",
     modified: "02/08/20",
     content: "This is the First Dummy Note!",
@@ -11,20 +11,20 @@ export const API_DUMMY_DATA = [
   },
   {
     _id: "2",
-    title: "Hello World",
+    title: "Hello World2",
     created: "01/08/20",
     modified: "02/08/20",
-    content: "This is the First Dummy Note!",
+    content: "This is the Second Dummy Note!",
     favourite: [1, 2, 3],
     tags: ["dev", "code"],
     access: [1, 2, 3],
   },
   {
     _id: "3",
-    title: "Hello World",
+    title: "Hello World3",
     created: "01/08/20",
     modified: "02/08/20",
-    content: "This is the First Dummy Note!",
+    content: "This is the Three Dummy Note!",
     favourite: [1, 2, 3],
     tags: ["food", "menu", "tasty"],
     access: [1, 2, 3],

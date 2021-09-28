@@ -1,4 +1,4 @@
-const { User, validate } = require("../model/user");
+const { User, validate, validateUpdate } = require("../model/user");
 const errorJson = require("../Operations/errorjson"); //for error json
 const auth = require("../middleware/auth"); // for authorization
 const bcrypt = require("bcrypt"); // for hashing password
@@ -40,27 +40,6 @@ router.get("/me", auth, async (req, res) => {
   const user = await User.findById(req.user._id).select("-password");
   res.send(user);
 });
-
-// //add a note to own profile if not already present
-// router.patch("/me/notes/add", auth, async (req, res) => {
-//   const user = await User.findById(req.user._id);
-//   if (!user) return res.status(404).send("User not found");
-//   if (user.notes.includes(req.body.note))
-//     return res.status(400).send("Note already present");
-//   user.notes.push(req.body.note);
-//   user.save().then(() => res.send(user.notes));
-// });
-
-// //delete a note from own profile if present
-// router.patch("/me/notes/delete", auth, async (req, res) => {
-//   const user = await User.findById(req.user._id);
-//   if (!user) return res.status(404).send("User not found");
-//   if (!user.notes.includes(req.body.note))
-//     return res.status(400).send("Note not present");
-//   user.notes.splice(user.notes.indexOf(req.body.note), 1);
-//   user.save().then(() => res.send(user.notes));
-// });
-
 router.put("/me", auth, async (req, res) => {
   const error = validate(req.body);
   if (error) return res.status(400).send(errorJson(error.details[0].message));
@@ -74,6 +53,17 @@ router.put("/me", auth, async (req, res) => {
     },
     { new: true }
   );
+  if (!user) return res.status(404).send(errorJson("User not found"));
+  res.send({ user: _.omit(user, ["password"]) }); //omit the password from the response
+});
+
+router.put("/me/update", auth, async (req, res) => {
+  const error = validateUpdate(req.body);
+  if (error) return res.status(400).send(errorJson(error.details[0].message));
+
+  const user = await User.findByIdAndUpdate(req.user._id, {
+    favorites: req.body.favorites,
+  });
   if (!user) return res.status(404).send(errorJson("User not found"));
   res.send({ user: _.omit(user, ["password"]) }); //omit the password from the response
 });

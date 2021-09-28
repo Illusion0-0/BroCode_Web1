@@ -11,6 +11,7 @@ export const UserContext = createContext({
 export default function UserProvider(props) {
   const initialToken = localStorage.getItem("token");
   const [token, setToken] = useState(initialToken);
+  const [favouriteNotes, setFavouriteNotes] = useState([]);
   const [user, setUser] = useState({});
   const userIsLoggedIn = !!token; // !!token === true or false
   const loginHandler = (token) => {
@@ -22,14 +23,19 @@ export default function UserProvider(props) {
     localStorage.setItem("token", "");
   };
 
-  const contextValue = {
-    token,
-    user,
-    setUser,
-    isLoggedIn: userIsLoggedIn,
-    login: loginHandler,
-    logout: logoutHandler,
-  };
+  const [darkMode, setDarkMode] = useState(false);
+  useEffect(() => {
+    const darkMode = JSON.parse(localStorage.getItem(`theme-mode`));
+
+    if (darkMode) {
+      setDarkMode(darkMode);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(`theme-mode`, JSON.stringify(darkMode));
+  }, [darkMode]);
+
   useEffect(() => {
     fetch(process.env.REACT_APP_SERVER_URL + "/api/users/me", {
       method: "GET",
@@ -41,27 +47,36 @@ export default function UserProvider(props) {
       .then((res) => res.json())
       .then((data) => {
         contextValue.setUser(data);
+        setFavouriteNotes(data.favorites);
+      });
+  }, [token]);
+
+  useEffect(() => {
+    fetch(process.env.REACT_APP_SERVER_URL + "/api/users/me", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "x-auth-token": contextValue.token,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setFavouriteNotes(data.favorites);
       });
   }, []);
 
-  // const [user2, loading, error] = useAuthState(auth);
-  // const [user, setuser] = useState(user2);
-  // useEffect(() => {
-  //   auth.onAuthStateChanged(async (user) => {
-  //     if (user) {
-  //       const { displayName, email, photoURL } = user;
-  //       setuser({
-  //         displayName,
-  //         email,
-  //         photoURL,
-  //       });
-  //     } else {
-  //       setuser(null);
-  //     }
-  //   });
-  // }, []);
-  // if (loading) return <div>loading...</div>;
-  // if (error) return <div>Unable to Log In</div>;
+  const contextValue = {
+    token,
+    user,
+    setUser,
+    isLoggedIn: userIsLoggedIn,
+    login: loginHandler,
+    logout: logoutHandler,
+    darkMode,
+    setDarkMode,
+    favouriteNotes,
+    setFavouriteNotes,
+  };
 
   return (
     <UserContext.Provider value={contextValue}>

@@ -56,7 +56,17 @@ function validateUser(user) {
     email: Joi.string().min(5).max(1024).email().required(),
     password: Joi.string().min(5).max(2048).required(),
     notes: Joi.array().items(Joi.string()),
-    favourite: Joi.array().items(Joi.string()),
+    favourites: Joi.array().items(Joi.string()),
+  });
+  const { error } = schema.validate(user);
+  return error;
+}
+
+//Validate the User
+function validateUserUpdate(user) {
+  const schema = Joi.object({
+    notes: Joi.array().items(Joi.string()),
+    favorites: Joi.array().items(Joi.string()),
   });
   const { error } = schema.validate(user);
   return error;
@@ -66,3 +76,4 @@ function validateUser(user) {
 // module.exports = User;
 exports.User = User;
 exports.validate = validateUser;
+exports.validateUpdate = validateUserUpdate;
