@@ -1,6 +1,6 @@
 import { MdDeleteForever } from "react-icons/md";
 import React, { useContext } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { NoteContext } from "../../providers/NoteProvider";
 
 const Note = ({ note }) => {
@@ -21,11 +21,6 @@ const Note = ({ note }) => {
         NoteCtx.setNotes((previousNotes) =>
           previousNotes.filter((prevnote) => note._id !== prevnote._id)
         );
-        // if(NoteCtx.activeNote.)
-        // NoteCtx.setActiveNote(data);
-
-        // console.log(NoteCtx);
-        // window.location.href = `/notes/${data._id}`;
       })
       .catch((err) => console.log(err));
   }

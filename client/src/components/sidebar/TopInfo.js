@@ -1,7 +1,6 @@
 import LogOut from "./LogOut";
 import { UserContext } from "../../providers/UserProvider";
 import React, { useContext } from "react";
-import SearchBar from "./SearchBar";
 import CreateBtn from "./CreateBtn";
 import { MdSearch } from "react-icons/md";
 

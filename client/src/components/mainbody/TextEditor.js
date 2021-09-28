@@ -66,7 +66,7 @@ function TextEditor(props) {
     //one enter or one clicking outside of input feild
     ["keydown", "blur"].forEach((evt) =>
       newInput.addEventListener(evt, (e) => {
-        if (evt == "blur") {
+        if (evt === "blur") {
           const noteid = props.match.params.noteid;
           fetch(process.env.REACT_APP_SERVER_URL + "/api/notes/" + noteid, {
             method: "PUT",
@@ -104,12 +104,6 @@ function TextEditor(props) {
   }
   const title = (
     <span>
-      <input
-        type="text"
-        value="${data.title}"
-        className="titleInput"
-        style={{ display: "none" }}
-      />
       <span id="title" onClick={changeTitle}>
         {data.title}
       </span>

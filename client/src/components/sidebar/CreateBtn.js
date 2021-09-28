@@ -1,6 +1,5 @@
 /* function used to create a note */
 import { useContext } from "react";
-import { Redirect } from "react-router";
 import { NoteContext } from "../../providers/NoteProvider";
 import { useHistory } from "react-router-dom";
 

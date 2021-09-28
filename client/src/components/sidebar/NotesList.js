@@ -1,6 +1,5 @@
 import Card from "./Card";
-import React, { useContext } from "react";
-import { NoteContext } from "../../providers/NoteProvider";
+import React from "react";
 
 function NotesList({ data }) {
   return (
