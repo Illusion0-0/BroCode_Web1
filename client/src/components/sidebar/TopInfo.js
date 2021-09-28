@@ -3,6 +3,7 @@ import { UserContext } from "../../providers/UserProvider";
 import React, { useContext } from "react";
 import CreateBtn from "./CreateBtn";
 import { MdSearch } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 function TopInfo({ handleSearchNote }) {
   const data = useContext(UserContext);
@@ -13,7 +14,9 @@ function TopInfo({ handleSearchNote }) {
         {user && (
           <div className="profile">
             {user ? (
-              <img src={user.avatar} className="avatar" alt="Avatar" />
+              <Link to="/">
+                <img src={user.avatar} className="avatar" alt="Avatar" />
+              </Link>
             ) : (
               ""
             )}

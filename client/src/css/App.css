@@ -400,6 +400,9 @@ main {
 
 /* Small screens */
 @media only screen and (max-width: 600px) {
+  .ck-editor__editable_inline {
+    height: calc(100vh - 135px) !important;
+  }
   .uname h2 {
     display: none;
   }
