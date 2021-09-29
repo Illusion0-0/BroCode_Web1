@@ -19,14 +19,26 @@ body {
   padding: 0;
 }
 
-body::-webkit-scrollbar {
-  width: 0.25rem;
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scrollbar-color: var(--bg-primary) #ffffff;
 }
 
-body::-webkit-scrollbar-track {
-  background: #1e1e24;
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 3px !important;
+  height: 3px !important;
+  background-color: transparent;
 }
 
-body::-webkit-scrollbar-thumb {
-  background: #6649b8;
+*::-webkit-scrollbar-track {
+  -webkit-box-shadow: none !important;
+  background-color: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: white;
 }

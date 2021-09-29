@@ -55,6 +55,70 @@ body,
   font-family: monospace !important;
 }
 
+.dashtitle button {
+  outline: 0;
+  border: 0;
+  background: none;
+  padding: 8px 25px;
+  margin-right: 15px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+}
+
+.welcome {
+  flex: 1;
+  text-align: center;
+  text-shadow: 1px 3px 3px rgba(0, 0, 0, 0.28);
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+.note-name {
+  flex: 1;
+}
+
+.note-header button,
+.uname button {
+  outline: 0;
+  border: 0;
+  background: none;
+  margin: 0 25px;
+  padding: 3px 10px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 15px;
+  cursor: pointer;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.profile a {
+  padding: 3px 10px;
+}
+
+.dashtitle button.blue {
+  position: relative;
+  color: #434344b4;
+}
+
+button.blue {
+  color: #22a7f0;
+}
+
+.dark-mode button.blue {
+  color: var(--text-secondary);
+}
+
+button.blue.active,
+button.blue:active,
+button.blue:hover {
+  background: #22a7f0;
+  color: #fff;
+}
+
 .dashheader h1 {
   margin: 0;
 }
@@ -85,6 +149,7 @@ body,
 }
 .dashnote p {
   margin: 10px 0;
+  font-size: 12px !important;
 }
 .dashnote small {
   display: block;
@@ -129,8 +194,10 @@ body,
 .dashtitle {
   font-size: 1.8rem;
   font-weight: 500;
-  display: block;
-  text-align: center;
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
   color: rgb(56, 56, 58) !important;
 }
 
@@ -229,29 +296,6 @@ body,
   word-wrap: break-word;
 }
 
-/* ===== Scrollbar CSS ===== */
-/* Firefox */
-* {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  scrollbar-color: var(--bg-primary) #ffffff;
-}
-
-/* Chrome, Edge, and Safari */
-*::-webkit-scrollbar {
-  width: 3px !important;
-  background-color: transparent;
-}
-
-*::-webkit-scrollbar-track {
-  -webkit-box-shadow: none !important;
-  background-color: transparent;
-}
-
-*::-webkit-scrollbar-thumb {
-  background-color: white;
-}
-
 .notedash {
   display: flex;
 }
@@ -259,19 +303,20 @@ body,
 .profile {
   display: flex;
   align-items: center;
+  padding-bottom: 10px;
+  overflow: auto;
 }
 
 .uname {
-  padding: 18px 12px;
+  padding: 18px 12px 0 12px;
 }
 
 .uname h2 {
   flex: 1;
   padding: 0 10px;
+  text-transform: capitalize;
 }
-.uname button {
-  border: none;
-}
+
 /* ------------------------- */
 
 main {
@@ -355,7 +400,7 @@ main {
   bottom: 0;
   align-items: center;
   background-color: var(--bg-primary);
-  padding: 5px;
+  padding: 10px;
   border: none;
 }
 
@@ -378,6 +423,8 @@ main {
 .add-note {
   padding: 4px;
   border: none;
+  font-size: 15px !important;
+  margin: 0 !important;
   background-color: var(--bg-secondary) !important;
 }
 
@@ -421,10 +468,9 @@ main {
     display: none;
   }
   .dashheader {
-    width: 100%;
     display: flex;
     align-items: center;
-    padding: 0 30px;
+    margin: 0 auto;
     flex-flow: row-reverse;
     justify-content: space-between;
   }
@@ -468,7 +514,7 @@ main {
   .hamburger {
     position: absolute;
     margin: 5px;
-    z-index: 2;
+    z-index: 9999992;
     cursor: pointer;
   }
 
@@ -486,6 +532,7 @@ main {
     top: 0;
     left: -320px;
     transition: left 1s;
+    z-index: 999999999999;
   }
   .navbar--open {
     left: 0;
@@ -505,12 +552,25 @@ main {
   }
 }
 
+.ck .ck-editor__main {
+  position: fixed;
+  width: 100%;
+}
+
 .note-header {
   text-align: center;
   background-color: whitesmoke;
   text-transform: uppercase;
   height: 30px;
   padding: 6px;
+  z-index: 10;
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .format-note {

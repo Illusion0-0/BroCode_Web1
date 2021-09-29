@@ -15,8 +15,8 @@ export default function LogOut() {
   // }
   const logOut = () => UserCtx.logout();
   return (
-    <button className="logout-button" onClick={logOut}>
-      <span> logout</span>
+    <button className="blue" onClick={logOut}>
+      <span> Logout</span>
     </button>
   );
 }

@@ -23,7 +23,7 @@ function GridList() {
     <div className="container">
       <div className="menu">
         <div className="dashtitle">
-          Welcome to NodeDown!
+          <div className="welcome"> Welcome to NodeDown!</div>
           <LogOut />
         </div>
         <div className="Notelist">
