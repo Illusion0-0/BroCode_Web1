@@ -5,8 +5,10 @@ function AddNoteCard() {
   const NoteCtx = useContext(NoteContext);
   function handleClick(e) {
     e.preventDefault();
+    const title = prompt("Enter a title for your Note");
     const note = {
       content: "",
+      title: title,
     };
     fetch(process.env.REACT_APP_SERVER_URL + "/api/notes", {
       method: "POST",
@@ -18,13 +20,15 @@ function AddNoteCard() {
     })
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data);
-        NoteCtx.setNotes((previousNotes) => {
-          if (previousNotes) return [data, ...previousNotes];
-          else return [data];
-        });
-        NoteCtx.setActiveNote(data);
-        // console.log(NoteCtx);
+        if (data.error) {
+          alert(data.error);
+        } else {
+          NoteCtx.setNotes((previousNotes) => {
+            if (previousNotes) return [data, ...previousNotes];
+            else return [data];
+          });
+          NoteCtx.setActiveNote(data);
+        }
       })
       .catch((err) => console.log(err));
   }

@@ -105,15 +105,19 @@ function TextEditor(props) {
   const title = (
     <span>
       <span id="title" onClick={changeTitle}>
-        {data.title}
+        &ensp;{data.title}
       </span>
     </span>
   );
   const noteHeader = (
     <div className="note-header">
-      {`${UserCtx.user.username} / `}
-      {title}
-      <button onClick={saveNote}>Save</button>
+      <div className="note-name">
+        {`${UserCtx.user.username} / `}
+        {title}
+      </div>
+      <button onClick={saveNote} className="blue">
+        Save
+      </button>
     </div>
   );
   //get all toolbar buttons

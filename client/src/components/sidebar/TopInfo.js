@@ -15,7 +15,12 @@ function TopInfo({ handleSearchNote }) {
           <div className="profile">
             {user ? (
               <Link to="/">
-                <img src={user.avatar} className="avatar" alt="Avatar" />
+                <img
+                  src={user.avatar}
+                  className="avatar"
+                  alt="Avatar"
+                  title="Go to Home"
+                />
               </Link>
             ) : (
               ""

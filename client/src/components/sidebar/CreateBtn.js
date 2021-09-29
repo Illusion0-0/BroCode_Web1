@@ -25,9 +25,13 @@ function CreateBtn() {
     })
       .then((res) => res.json())
       .then((data) => {
-        NoteCtx.setNotes((prev) => [data, ...prev]);
-        NoteCtx.setActiveNote(data);
-        history.replace(`/dashboard/notes/${data._id}`);
+        if (data.error) {
+          alert(data.error);
+        } else {
+          NoteCtx.setNotes((prev) => [data, ...prev]);
+          NoteCtx.setActiveNote(data);
+          history.replace(`/dashboard/notes/${data._id}`);
+        }
       })
       .catch((err) => console.log(err));
   }
