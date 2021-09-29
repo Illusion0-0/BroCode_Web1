@@ -8,7 +8,10 @@ function auth(req, res, next) {
 
   try {
     // Verify token and get user info from payload (decoded) and put it in req.user object.
-    const decoded = jwt.verify(token, "jwtPrivateKey");
+    const decoded = jwt.verify(
+      token,
+      process.env.TOKEN_SECRET || "jwtPrivateKey"
+    );
     req.user = decoded;
     next();
   } catch (ex) {
