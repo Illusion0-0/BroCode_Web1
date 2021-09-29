@@ -8,13 +8,13 @@ const cors = require("cors");
 const xss = require("xss-clean");
 
 mongoose
-  .connect("mongodb://localhost/playground")
+  .connect(process.env.MONGO_URI || "mongodb://localhost/notedown")
   .then(() => console.log("Connected to MongoDB..."))
   .catch((err) => console.error("Could not connect to MongoDB...", err));
 
 app.use(xss());
 //Allow cross-origin requests for trusted origins
-app.use(cors({ origin: "http://localhost:3000" }));
+app.use(cors({ origin: process.env.CLIENT_URL || "http://localhost:3000" }));
 
 //Parse the body of the request to JSON using a middleware express.json()
 app.use(express.json());
