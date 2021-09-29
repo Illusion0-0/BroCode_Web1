@@ -3,6 +3,8 @@ import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { NoteContext } from "../../providers/NoteProvider";
 import { UserContext } from "../../providers/UserProvider";
+import { AiOutlineStar } from "react-icons/ai";
+
 function Card({ props }) {
   const { setActiveNote, activeNote } = useContext(NoteContext);
   const UserCtx = useContext(UserContext);
@@ -51,9 +53,12 @@ function Card({ props }) {
       <div className="dashnotetitle">
         <h3>{props.title} </h3>
         <div className="fav" onClick={handleFav}>
-          {UserCtx.favouriteNotes && UserCtx.favouriteNotes.includes(props._id)
-            ? "⭐"
-            : "☆"}
+          {UserCtx.favouriteNotes &&
+          UserCtx.favouriteNotes.includes(props._id) ? (
+            "⭐"
+          ) : (
+            <AiOutlineStar color="white" size="0.8rem" />
+          )}
         </div>
       </div>
       <p>Last Updated on {updatedAt}</p>

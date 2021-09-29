@@ -2,6 +2,7 @@
 import { useContext } from "react";
 import { NoteContext } from "../../providers/NoteProvider";
 import { useHistory } from "react-router-dom";
+import { IoCreateOutline } from "react-icons/io5";
 
 function CreateBtn() {
   const NoteCtx = useContext(NoteContext);
@@ -32,7 +33,10 @@ function CreateBtn() {
   }
   return (
     <button className="add-note" onClick={handleClick}>
-      <span>📝</span>
+      <span>
+        {" "}
+        <IoCreateOutline color="white" size="1.3em" title="Add Note" />{" "}
+      </span>
     </button>
   );
 }

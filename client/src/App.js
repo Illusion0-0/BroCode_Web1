@@ -10,6 +10,8 @@ import {
 } from "react-router-dom";
 import "./css/App.css";
 import NoteGrid from "./pages/NoteGrid";
+import { FaRegMoon } from "react-icons/fa";
+import { FiSun } from "react-icons/fi";
 
 function App() {
   const UserCtx = useContext(UserContext);
@@ -33,17 +35,24 @@ function App() {
             {!isLoggedIn && <Redirect to="/auth" />}
           </Route>
         </Switch>
+
         <div className={`${UserCtx.darkMode && "dark-mode"}`}>
-          <a href="#">
-            <span
-              className="float"
+          <div className="float" title="Toggle theme-mode">
+            <button
               onClick={() =>
                 UserCtx.setDarkMode((previousDarkMode) => !previousDarkMode)
               }
             >
-              <i className="moon">🌜</i>
-            </span>
-          </a>
+              <i>
+                {" "}
+                {UserCtx.darkMode ? (
+                  <FiSun color="black" size="1.5rem" />
+                ) : (
+                  <FaRegMoon color="white" size="1.5rem" />
+                )}
+              </i>
+            </button>
+          </div>
         </div>
       </div>
     </Router>

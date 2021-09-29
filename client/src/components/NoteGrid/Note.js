@@ -2,6 +2,7 @@ import { MdDeleteForever } from "react-icons/md";
 import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { NoteContext } from "../../providers/NoteProvider";
+import { AiOutlineStar } from "react-icons/ai";
 
 const Note = ({ note }) => {
   let history = useHistory();
@@ -32,10 +33,9 @@ const Note = ({ note }) => {
   function extractContent(s) {
     var span = document.createElement("span");
     span.innerHTML = s;
-    if (span.innerText.length > 85) {
+    if (span.innerText.length > 85)
       return (span.textContent || span.innerText).substring(0, 85) + "...";
-      return span.textContent || span.innerText;
-    }
+    return span.textContent || span.innerText;
   }
   return (
     <div className="note">
@@ -45,12 +45,14 @@ const Note = ({ note }) => {
       </div>
       <div className="note-footer">
         <small>{note.modified}</small>
+
         <MdDeleteForever
           onClick={() => handleDel(note)}
           className="deleteNote"
           size="1.3em"
           color="red"
         />
+        <AiOutlineStar className="star-card" color="black" size="1.1rem" />
       </div>
     </div>
   );

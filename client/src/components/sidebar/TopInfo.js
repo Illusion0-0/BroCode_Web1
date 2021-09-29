@@ -20,11 +20,11 @@ function TopInfo({ handleSearchNote }) {
             ) : (
               ""
             )}
-            <h2>{user ? user.username : "Guest"}</h2>
-            <LogOut />
+            <h3>Your Notes</h3>
             <div>
               <CreateBtn />
             </div>
+            <LogOut />
           </div>
         )}
       </div>
