@@ -39,10 +39,10 @@ async function createNote(newNote) {
   
   @return(Array): Array of Document Objects
 */
-async function getNotes(where, onlyGet, pageSize, pageNumber, sortBy) {
+async function getNotes(where, onlyGet, /*pageSize, pageNumber,*/ sortBy) {
   const notes = await Note.find(where)
-    .skip((pageNumber - 1) * pageSize)
-    .limit(pageSize)
+    //.skip((pageNumber - 1) * pageSize)
+    //.limit(pageSize)
     .select(onlyGet)
     .sort(sortBy);
   return notes;
