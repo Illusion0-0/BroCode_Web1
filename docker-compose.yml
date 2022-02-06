@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  client:
+    depends_on:
+      - server
+      - db
+    build:
+      context: ./client
+      args:
+        REACT_APP_SERVER_URL: http://localhost:3002
+    ports:
+      - 80:80
+    restart: unless-stopped
+
+  server:
+    depends_on:
+      - db
+    build: ./server
+    restart: unless-stopped
+    ports:
+      - 3002:3002
+    environment:
+      MONGO_URI: mongodb://db/notedown
+      #change to your frontend url
+      CLIENT_URL: http://localhost
+  db:
+    image: mongo:5.0.6-focal
+    ports:
+      - 27017:27017
+    volumes:
+      - notedown:/data/db
+    restart: unless-stopped
+
+volumes:
+  notedown:
